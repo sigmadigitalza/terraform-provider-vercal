@@ -1,4 +1,4 @@
-module letmein.to/terraform-provider-vercel
+module github.com/sigmadigitalza/terraform-provider-vercel
 
 go 1.16
 

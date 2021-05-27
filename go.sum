@@ -268,10 +268,6 @@ github.com/rogpeppe/go-internal v1.3.0/go.mod h1:M8bDsm7K2OlrFYOpmOWEs/qY81heoFR
 github.com/sergi/go-diff v1.0.0/go.mod h1:0CfEIISq7TuYL3j771MWULgwwjU+GofnZX9QAmXWZgo=
 github.com/sergi/go-diff v1.1.0/go.mod h1:STckp+ISIX8hZLjrqAeVduY0gWCT9IjLuqbuNXdaHfM=
 github.com/sergi/go-diff v1.2.0/go.mod h1:STckp+ISIX8hZLjrqAeVduY0gWCT9IjLuqbuNXdaHfM=
-github.com/sigmadigitalza/go-vercel-client v0.0.1 h1:KLQvq7VOZKlqQ/0husbiuxIGq1kspbhWD4DN2nu23bo=
-github.com/sigmadigitalza/go-vercel-client v0.0.1/go.mod h1:GTEFEp40PIfMsVrskcvhWE+U55T82ET3FKTBz8Uhr8s=
-github.com/sigmadigitalza/go-vercel-client v0.0.2-0.20210526141740-6e38d9c9102b h1:A8cHeFPZmcjreSrJmYJzC85agoKe3q9grpCilyHPvMY=
-github.com/sigmadigitalza/go-vercel-client v0.0.2-0.20210526141740-6e38d9c9102b/go.mod h1:GTEFEp40PIfMsVrskcvhWE+U55T82ET3FKTBz8Uhr8s=
 github.com/sigmadigitalza/go-vercel-client v0.0.2-0.20210526142616-daf80c16995d h1:fRM1wEZ7E4ByqIMueKMeX4+wBnrxrstl8eQSlq20J1I=
 github.com/sigmadigitalza/go-vercel-client v0.0.2-0.20210526142616-daf80c16995d/go.mod h1:GTEFEp40PIfMsVrskcvhWE+U55T82ET3FKTBz8Uhr8s=
 github.com/sirupsen/logrus v1.4.1/go.mod h1:ni0Sbl8bgC9z8RoU9G6nDWqqs/fq4eDPysMBDgk/93Q=
