@@ -17,7 +17,7 @@ make install
 
 ## Using the provider
 
-The provider requires the following environmental variables:
+The provider requires the following environment variables:
 
 | Variable | Required | Description |
 | --- | :---: | --- |
