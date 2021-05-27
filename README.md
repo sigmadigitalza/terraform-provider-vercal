@@ -17,4 +17,11 @@ make install
 
 ## Using the provider
 
+The provider requires the following environment variables:
+
+| Variable | Required | Description |
+| --- | :---: | --- |
+| VERCEL_TOKEN | ✅ | A valid Vercel API token |
+| VERCEL_TEAM_ID | - | A Vercel Team ID for working with a team rather than the token's user |
+
 See the [example](./examples/main.tf) directory for an example usage.
