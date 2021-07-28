@@ -35,7 +35,7 @@ func resourceProject() *schema.Resource {
 			},
 			"git_repo": {
 				Type:     schema.TypeString,
-				Optional: false,
+				Optional: true,
 				ForceNew: true,
 			},
 		},
