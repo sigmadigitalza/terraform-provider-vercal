@@ -29,12 +29,12 @@ func resourceProject() *schema.Resource {
 			},
 			"gitType": {
 				Type: schema.TypeString,
-				Required: false,
+				Optional: true,
 				ForceNew: true,
 			},
 			"gitRepo": {
 				Type: schema.TypeString,
-				Required: false,
+				Optional: false,
 				ForceNew: true,
 			},
 		},
