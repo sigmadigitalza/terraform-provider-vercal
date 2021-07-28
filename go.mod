@@ -18,7 +18,7 @@ require (
 	github.com/mitchellh/go-wordwrap v1.0.1 // indirect
 	github.com/mitchellh/mapstructure v1.4.1 // indirect
 	github.com/oklog/run v1.1.0 // indirect
-	github.com/sigmadigitalza/go-vercel-client v0.1.0
+	github.com/sigmadigitalza/go-vercel-client v0.2.0
 	github.com/zclconf/go-cty v1.8.3 // indirect
 	golang.org/x/net v0.0.0-20210525063256-abc453219eb5 // indirect
 	golang.org/x/sys v0.0.0-20210525143221-35b2ab0089ea // indirect

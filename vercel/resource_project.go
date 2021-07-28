@@ -2,6 +2,7 @@ package vercel
 
 import (
 	"context"
+	"fmt"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	vercel "github.com/sigmadigitalza/go-vercel-client"
@@ -10,30 +11,30 @@ import (
 func resourceProject() *schema.Resource {
 	return &schema.Resource{
 		CreateContext: resourceProjectCreate,
-		ReadContext: resourceProjectRead,
+		ReadContext:   resourceProjectRead,
 		UpdateContext: resourceProjectUpdate,
 		DeleteContext: resourceProjectDelete,
 		Schema: map[string]*schema.Schema{
 			"id": {
-				Type: schema.TypeString,
+				Type:     schema.TypeString,
 				Computed: true,
 			},
 			"name": {
-				Type: schema.TypeString,
+				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"framework": {
-				Type: schema.TypeString,
+				Type:     schema.TypeString,
 				Required: true,
 			},
 			"git_type": {
-				Type: schema.TypeString,
+				Type:     schema.TypeString,
 				Optional: true,
 				ForceNew: true,
 			},
 			"git_repo": {
-				Type: schema.TypeString,
+				Type:     schema.TypeString,
 				Optional: false,
 				ForceNew: true,
 			},
@@ -82,7 +83,7 @@ func resourceProjectUpdate(ctx context.Context, d *schema.ResourceData, m interf
 	framework := d.Get("framework").(string)
 
 	p := &vercel.Project{
-		Name: name,
+		Name:      name,
 		Framework: framework,
 	}
 
@@ -120,6 +121,18 @@ func hydrateProject(diags diag.Diagnostics, project *vercel.Project, d *schema.R
 
 	if err := d.Set("framework", project.Framework); err != nil {
 		return diag.FromErr(err)
+	}
+
+	if project.Link != nil && project.Link.Org != "" && project.Link.Repo != "" {
+		if err := d.Set("git_type", project.Link.Type); err != nil {
+			return diag.FromErr(err)
+		}
+
+		org := project.Link.Org
+		repo := project.Link.Repo
+		if err := d.Set("framework", fmt.Sprintf("%s/%s", org, repo)); err != nil {
+			return diag.FromErr(err)
+		}
 	}
 
 	return diags
