@@ -27,6 +27,16 @@ func resourceProject() *schema.Resource {
 				Type: schema.TypeString,
 				Required: true,
 			},
+			"gitType": {
+				Type: schema.TypeString,
+				Required: false,
+				ForceNew: true,
+			},
+			"gitRepo": {
+				Type: schema.TypeString,
+				Required: false,
+				ForceNew: true,
+			},
 		},
 	}
 }
@@ -36,8 +46,10 @@ func resourceProjectCreate(ctx context.Context, d *schema.ResourceData, m interf
 
 	name := d.Get("name").(string)
 	framework := d.Get("framework").(string)
+	gitType := d.Get("gitType").(string)
+	gitRepo := d.Get("gitRepo").(string)
 
-	project, err := client.Project.CreateProject(ctx, name, framework)
+	project, err := client.Project.CreateProject(ctx, name, framework, gitType, gitRepo)
 	if err != nil {
 		return diag.FromErr(err)
 	}
