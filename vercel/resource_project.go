@@ -130,7 +130,7 @@ func hydrateProject(diags diag.Diagnostics, project *vercel.Project, d *schema.R
 
 		org := project.Link.Org
 		repo := project.Link.Repo
-		if err := d.Set("framework", fmt.Sprintf("%s/%s", org, repo)); err != nil {
+		if err := d.Set("git_repo", fmt.Sprintf("%s/%s", org, repo)); err != nil {
 			return diag.FromErr(err)
 		}
 	}
