@@ -274,6 +274,8 @@ github.com/sigmadigitalza/go-vercel-client v0.1.0 h1:s1ynGgDjk+3wLUmN8DjyI/JPXTa
 github.com/sigmadigitalza/go-vercel-client v0.1.0/go.mod h1:GTEFEp40PIfMsVrskcvhWE+U55T82ET3FKTBz8Uhr8s=
 github.com/sigmadigitalza/go-vercel-client v0.2.0 h1:43WUgMywmYaanj1HkjOoSijnkq2tTeLImpj7hn2al0I=
 github.com/sigmadigitalza/go-vercel-client v0.2.0/go.mod h1:GTEFEp40PIfMsVrskcvhWE+U55T82ET3FKTBz8Uhr8s=
+github.com/sigmadigitalza/go-vercel-client v0.2.1 h1:rNOJsMd1nMsCfXzVD4ZhIBTQsm2Z+D57COXMDakw6zQ=
+github.com/sigmadigitalza/go-vercel-client v0.2.1/go.mod h1:GTEFEp40PIfMsVrskcvhWE+U55T82ET3FKTBz8Uhr8s=
 github.com/sirupsen/logrus v1.4.1/go.mod h1:ni0Sbl8bgC9z8RoU9G6nDWqqs/fq4eDPysMBDgk/93Q=
 github.com/spf13/pflag v1.0.2/go.mod h1:DYY7MBk1bdzusC3SYhjObp+wFpr4gzcvqqNjLnInEg4=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
