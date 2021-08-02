@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	vercel "github.com/sigmadigitalza/go-vercel-client"
+	vercel "github.com/sigmadigitalza/go-vercel-client/v2"
 )
 
 func resourceProject() *schema.Resource {
@@ -28,6 +28,10 @@ func resourceProject() *schema.Resource {
 				Type:     schema.TypeString,
 				Required: true,
 			},
+			"root_directory": {
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"git_type": {
 				Type:     schema.TypeString,
 				Optional: true,
@@ -47,10 +51,19 @@ func resourceProjectCreate(ctx context.Context, d *schema.ResourceData, m interf
 
 	name := d.Get("name").(string)
 	framework := d.Get("framework").(string)
+	rootDirectory := d.Get("root_directory").(string)
 	gitType := d.Get("git_type").(string)
 	gitRepo := d.Get("git_repo").(string)
 
-	project, err := client.Project.CreateProject(ctx, name, framework, gitType, gitRepo)
+	options := &vercel.CreateProjectOptions{
+		Name:           name,
+		Framework:      framework,
+		RepositoryType: gitType,
+		RepositoryName: gitRepo,
+		RootDirectory:  rootDirectory,
+	}
+
+	project, err := client.Project.CreateProject(ctx, options)
 	if err != nil {
 		return diag.FromErr(err)
 	}
@@ -81,10 +94,12 @@ func resourceProjectUpdate(ctx context.Context, d *schema.ResourceData, m interf
 
 	name := d.Get("name").(string)
 	framework := d.Get("framework").(string)
+	rootDirectory := d.Get("root_directory").(string)
 
 	p := &vercel.Project{
-		Name:      name,
-		Framework: framework,
+		Name:          name,
+		Framework:     framework,
+		RootDirectory: rootDirectory,
 	}
 
 	_, err := client.Project.UpdateProject(ctx, name, p)
@@ -121,6 +136,12 @@ func hydrateProject(diags diag.Diagnostics, project *vercel.Project, d *schema.R
 
 	if err := d.Set("framework", project.Framework); err != nil {
 		return diag.FromErr(err)
+	}
+
+	if project.RootDirectory != "" {
+		if err := d.Set("root_directory", project.RootDirectory); err != nil {
+			return diag.FromErr(err)
+		}
 	}
 
 	if project.Link != nil && project.Link.Org != "" && project.Link.Repo != "" {

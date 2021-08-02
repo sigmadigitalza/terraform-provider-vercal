@@ -4,7 +4,7 @@ import (
 	"context"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	vercel "github.com/sigmadigitalza/go-vercel-client"
+	vercel "github.com/sigmadigitalza/go-vercel-client/v2"
 )
 
 func Provider() *schema.Provider {
