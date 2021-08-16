@@ -42,6 +42,18 @@ func resourceProject() *schema.Resource {
 				Optional: true,
 				ForceNew: true,
 			},
+			"build_command": {
+				Type:     schema.TypeString,
+				Optional: true,
+			},
+			"output_directory": {
+				Type:     schema.TypeString,
+				Optional: true,
+			},
+			"command_for_ignoring_build_step": {
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 		},
 	}
 }
@@ -54,13 +66,17 @@ func resourceProjectCreate(ctx context.Context, d *schema.ResourceData, m interf
 	rootDirectory := d.Get("root_directory").(string)
 	gitType := d.Get("git_type").(string)
 	gitRepo := d.Get("git_repo").(string)
+	buildCommand := d.Get("build_command").(string)
+	outputDirectory := d.Get("output_directory").(string)
 
 	options := &vercel.CreateProjectOptions{
-		Name:           name,
-		Framework:      framework,
-		RepositoryType: gitType,
-		RepositoryName: gitRepo,
-		RootDirectory:  rootDirectory,
+		Name:            name,
+		Framework:       framework,
+		RepositoryType:  gitType,
+		RepositoryName:  gitRepo,
+		RootDirectory:   rootDirectory,
+		BuildCommand:    buildCommand,
+		OutputDirectory: outputDirectory,
 	}
 
 	project, err := client.Project.CreateProject(ctx, options)
@@ -95,11 +111,17 @@ func resourceProjectUpdate(ctx context.Context, d *schema.ResourceData, m interf
 	name := d.Get("name").(string)
 	framework := d.Get("framework").(string)
 	rootDirectory := d.Get("root_directory").(string)
+	buildCommand := d.Get("build_command").(string)
+	outputDirectory := d.Get("output_directory").(string)
+	commandForIgnoringBuildStep := d.Get("command_for_ignoring_build_step").(string)
 
 	p := &vercel.Project{
-		Name:          name,
-		Framework:     framework,
-		RootDirectory: rootDirectory,
+		Name:                        name,
+		Framework:                   framework,
+		RootDirectory:               rootDirectory,
+		BuildCommand:                buildCommand,
+		OutputDirectory:             outputDirectory,
+		CommandForIgnoringBuildStep: commandForIgnoringBuildStep,
 	}
 
 	_, err := client.Project.UpdateProject(ctx, name, p)
@@ -154,6 +176,18 @@ func hydrateProject(diags diag.Diagnostics, project *vercel.Project, d *schema.R
 		if err := d.Set("git_repo", fmt.Sprintf("%s/%s", org, repo)); err != nil {
 			return diag.FromErr(err)
 		}
+	}
+
+	if err := d.Set("build_command", project.BuildCommand); err != nil {
+		return diag.FromErr(err)
+	}
+
+	if err := d.Set("output_directory", project.OutputDirectory); err != nil {
+		return diag.FromErr(err)
+	}
+
+	if err := d.Set("command_for_ignoring_build_step", project.CommandForIgnoringBuildStep); err != nil {
+		return diag.FromErr(err)
 	}
 
 	return diags
