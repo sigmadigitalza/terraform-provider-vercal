@@ -10,7 +10,7 @@ terraform {
 provider "vercel" {}
 
 resource "vercel_project" "test_project" {
-  name = "test_project"
+  name = "test-project"
   framework = "nextjs"
 }
 

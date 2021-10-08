@@ -26,7 +26,7 @@ func resourceProject() *schema.Resource {
 			},
 			"framework": {
 				Type:     schema.TypeString,
-				Required: true,
+				Optional: true,
 			},
 			"root_directory": {
 				Type:     schema.TypeString,
@@ -54,6 +54,9 @@ func resourceProject() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
+		},
+		Importer: &schema.ResourceImporter{
+			StateContext: schema.ImportStatePassthroughContext,
 		},
 	}
 }
