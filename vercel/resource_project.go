@@ -98,6 +98,9 @@ func resourceProjectCreate(ctx context.Context, d *schema.ResourceData, m interf
 func resourceProjectRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 	client := m.(*vercel.Client)
 	name := d.Get("name").(string)
+	if name == "" {
+		name = d.Id()
+	}
 
 	project, err := client.Project.GetProject(ctx, name)
 	if err != nil {
