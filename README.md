@@ -25,3 +25,32 @@ The provider requires the following environment variables:
 | VERCEL_TEAM_ID | - | A Vercel Team ID for working with a team rather than the token's user |
 
 See the [example](./examples/main.tf) directory for an example usage.
+
+## Importing existing resources
+
+Any IDs of existing resources required for importing with the following commands can be found using the
+[Vercel API](https://vercel.com/docs/rest-api#endpoints/projects/find-a-project-by-id-or-name)
+
+### Vercel projects
+
+Use the following format to import a Vercel project:
+
+```shell
+terraform import vercel_project.test_project <vercel-project-name>
+```
+
+### Domains
+
+Use the following format to import a domain:
+
+```shell
+terraform import vercel_project_domain.test_domain <vercel-project-name>:<domain-name>
+```
+
+### Environmental Variables
+
+Use the following format to import an env:
+
+```shell
+terraform import vercel_project_env.test_env <vercel-project-name>:<env-id>
+```
