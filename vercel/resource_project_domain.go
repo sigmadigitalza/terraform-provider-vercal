@@ -17,7 +17,7 @@ var (
 func importStateProjectDomainContext(ctx context.Context, d *schema.ResourceData, m interface{}) ([]*schema.ResourceData, error) {
 	id := d.Id()
 
-	// for importing of domains, specify the id in the following format: "vercel-project-name:domain-name
+	// for importing of domains, specify the id in the following format: "vercel-project-name:domain-name"
 	if strings.Contains(id, ":") {
 		values := strings.Split(id, ":")
 
