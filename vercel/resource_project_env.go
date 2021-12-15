@@ -6,11 +6,35 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	vercel "github.com/sigmadigitalza/go-vercel-client/v2"
+	"strings"
 )
 
 var (
 	EnvNotFoundError = errors.New("project env not found")
+	InvalidEnvIdError = errors.New("invalid env ID specified")
 )
+
+func importStateProjectEnvContext(ctx context.Context, d *schema.ResourceData, m interface{}) ([]*schema.ResourceData, error) {
+	id := d.Id()
+
+	// for importing of envs, specify the id in the following format: "vercel-project-name:vercel-env-id"
+	if strings.Contains(id, ":") {
+		values := strings.Split(id, ":")
+
+		if len(values) != 2 {
+			return nil, InvalidEnvIdError
+		}
+
+		err := d.Set("name", values[0])
+		if err != nil {
+			return nil, err
+		}
+
+		d.SetId(values[1])
+	}
+
+	return []*schema.ResourceData{d}, nil
+}
 
 func resourceProjectEnv() *schema.Resource {
 	return &schema.Resource{
@@ -48,7 +72,7 @@ func resourceProjectEnv() *schema.Resource {
 			},
 		},
 		Importer: &schema.ResourceImporter{
-			StateContext: schema.ImportStatePassthroughContext,
+			StateContext: importStateProjectEnvContext,
 		},
 	}
 }
@@ -78,7 +102,7 @@ func resourceProjectEnvRead(ctx context.Context, d *schema.ResourceData, m inter
 	client := m.(*vercel.Client)
 
 	name := d.Get("name").(string)
-	id := d.Get("id").(string)
+	id := d.Id()
 
 	projectEnvs, err := client.Project.GetProjectEnvs(ctx, name, true)
 	if err != nil {

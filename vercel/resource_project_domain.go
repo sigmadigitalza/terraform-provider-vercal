@@ -6,11 +6,40 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	vercel "github.com/sigmadigitalza/go-vercel-client/v2"
+	"strings"
 )
 
 var (
 	ProjectDomainNotFoundError = errors.New("project domain not found")
+	InvalidDomainIdError = errors.New("invalid domain ID specified")
 )
+
+func importStateProjectDomainContext(ctx context.Context, d *schema.ResourceData, m interface{}) ([]*schema.ResourceData, error) {
+	id := d.Id()
+
+	// for importing of domains, specify the id in the following format: "vercel-project-name:domain-name
+	if strings.Contains(id, ":") {
+		values := strings.Split(id, ":")
+
+		if len(values) != 2 {
+			return nil, InvalidDomainIdError
+		}
+
+		err := d.Set("name", values[0])
+		if err != nil {
+			return nil, err
+		}
+
+		err = d.Set("domain", values[1])
+		if err != nil {
+			return nil, err
+		}
+
+		d.SetId(values[1])
+	}
+
+	return []*schema.ResourceData{d}, nil
+}
 
 func resourceProjectDomain() *schema.Resource {
 	return &schema.Resource{
@@ -34,7 +63,7 @@ func resourceProjectDomain() *schema.Resource {
 			},
 		},
 		Importer: &schema.ResourceImporter{
-			StateContext: schema.ImportStatePassthroughContext,
+			StateContext: importStateProjectDomainContext,
 		},
 	}
 }
