@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	EnvNotFoundError = errors.New("project env not found")
+	EnvNotFoundError  = errors.New("project env not found")
 	InvalidEnvIdError = errors.New("invalid env ID specified")
 )
 
@@ -44,7 +44,7 @@ func resourceProjectEnv() *schema.Resource {
 		DeleteContext: resourceProjectEnvDelete,
 		Schema: map[string]*schema.Schema{
 			"id": {
-				Type: schema.TypeString,
+				Type:     schema.TypeString,
 				Computed: true,
 			},
 			"name": {

@@ -10,9 +10,9 @@ import (
 func Provider() *schema.Provider {
 	return &schema.Provider{
 		ConfigureContextFunc: configureContext,
-		ResourcesMap:         map[string]*schema.Resource {
-			"vercel_project": resourceProject(),
-			"vercel_project_env": resourceProjectEnv(),
+		ResourcesMap: map[string]*schema.Resource{
+			"vercel_project":        resourceProject(),
+			"vercel_project_env":    resourceProjectEnv(),
 			"vercel_project_domain": resourceProjectDomain(),
 		},
 	}

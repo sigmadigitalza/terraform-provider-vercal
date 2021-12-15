@@ -11,7 +11,7 @@ import (
 
 var (
 	ProjectDomainNotFoundError = errors.New("project domain not found")
-	InvalidDomainIdError = errors.New("invalid domain ID specified")
+	InvalidDomainIdError       = errors.New("invalid domain ID specified")
 )
 
 func importStateProjectDomainContext(ctx context.Context, d *schema.ResourceData, m interface{}) ([]*schema.ResourceData, error) {
@@ -44,21 +44,21 @@ func importStateProjectDomainContext(ctx context.Context, d *schema.ResourceData
 func resourceProjectDomain() *schema.Resource {
 	return &schema.Resource{
 		CreateContext: resourceProjectDomainCreate,
-		ReadContext: resourceProjectDomainRead,
+		ReadContext:   resourceProjectDomainRead,
 		UpdateContext: resourceProjectDomainUpdate,
 		DeleteContext: resourceProjectDomainDestroy,
 		Schema: map[string]*schema.Schema{
 			"name": {
-				Type: schema.TypeString,
+				Type:     schema.TypeString,
 				Required: true,
 			},
 			"domain": {
-				Type: schema.TypeString,
+				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"redirect": {
-				Type: schema.TypeString,
+				Type:     schema.TypeString,
 				Optional: true,
 			},
 		},
